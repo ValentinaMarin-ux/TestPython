@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  db1:
+    build: 
+      context: ./MySQL
+      dockerfile: Dockerfile
+    container_name: mysql_db1
+    restart: always
+    ports:
+    - 4600:3306
+    volumes:
+      - ./Config/mysql:/var/lib/mysql
+    hostname: apps_database
+    networks:
+      - db1_parcial
+    healthcheck:
+        test: ["CMD","mysql", "-u", "root", "-pMiau"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+
+  adminer:
+    image: adminer
+    container_name: adminer_db1
+    restart: always
+    ports:
+      - 8001:8080
+    networks:
+      - db1_parcial
+
+
+networks:
+  db1_parcial:
+      driver: bridge
+      name: db1_parcial
+

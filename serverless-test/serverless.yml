@@ -1,0 +1,25 @@
+service: serverless-test
+frameworkVersion: '3'
+
+plugins:
+  - serverless-offline
+
+
+provider:
+  name: aws
+  runtime: python3.9
+
+functions:
+  method_five_attributes:
+    handler: handler.method_five_attributes
+    events:
+      - http:
+          path: /method_five_attributes
+          method: get
+
+  method_ten_attributes:
+    handler: handler.method_ten_attributes
+    events:
+      - http:
+          path: /method_ten_attributes
+          method: get 
