@@ -1,0 +1,35 @@
+services:
+  db:
+    build: 
+      context: ./MySQL
+      dockerfile: Dockerfile
+    container_name: BD2
+    restart: always
+    ports:
+      - 4800:3306
+    volumes:
+      - ./Config/mysql:/var/lib/mysql
+    hostname: owner
+    networks:
+      - eam_apps
+    healthcheck:
+        test: ["CMD","mysql", "-u", "partial_user", "-pPass123"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+# --------------------------------------------------------------------
+  # - The adminer is a tool for managing content in databases.
+  adminer:
+    image: adminer_BD2
+    container_name: adminer_BD2
+    restart: always
+    ports:
+      - 9001:8080
+    networks:
+      - eam_apps
+# --------------------------------------------------------------------
+
+networks:
+  eam_apps:
+      driver: bridge
+      name: eam_apps

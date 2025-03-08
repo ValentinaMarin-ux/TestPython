@@ -1,1 +1,6 @@
 DB1/Config/
+DB2/Config/
+DB2/.history/
+__pycache__/
+.venv/
+.history/
